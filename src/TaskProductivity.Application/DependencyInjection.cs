@@ -1,0 +1,21 @@
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using TaskProductivity.Application.Interfaces;
+using TaskProductivity.Application.Services;
+
+namespace TaskProductivity.Application;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddApplication(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
+        services.AddScoped<IProjectService, ProjectService>();
+        services.AddScoped<ITaskService, TaskService>();
+        services.AddScoped<ITimeTrackingService, TimeTrackingService>();
+        services.AddScoped<IAnalyticsService, AnalyticsService>();
+
+        return services;
+    }
+}
